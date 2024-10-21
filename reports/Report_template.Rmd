@@ -1,0 +1,177 @@
+---
+title: "Project title"
+author: "name"
+date: \today
+output:
+  pdf_document:
+    extra_dependencies: subfig
+    number_sections: yes
+    toc: yes
+    toc_depth: 3
+  word_document:
+    toc: yes
+    toc_depth: '3'
+  highlight: zenburn
+header-includes:
+- \usepackage{fancyhdr}
+- \usepackage{mathtools}
+- \usepackage{hyperref}
+- \setlength{\headheight}{33pt}
+- \setlength{\footskip}{25pt}
+- \pagestyle{fancy}
+- \renewcommand{\headrulewidth}{0.5pt}
+- \renewcommand{\footrulewidth}{0.5pt}
+- \cfoot{\scriptsize Report template}
+- \rhead{\thepage}
+- \hypersetup{colorlinks   = true, linkcolor=blue, urlcolor  = blue}
+- \fancypagestyle{plain}{\pagestyle{fancy}}
+subtitle: Project code `O/604000/31`
+editor_options:
+  chunk_output_type: console
+---
+
+```{r global_options, include=FALSE}
+library(knitr)
+# global options to show by default the code, dump the figures into /Figures etc
+# change as required, e.g put echo = FALSE if you do not want to show the code.
+knitr::opts_chunk$set(dpi = 100, 
+                      echo=TRUE, 
+                      warning=FALSE, message=FALSE, eval = TRUE,
+                      fig.show=TRUE, fig.width= 5,fig.height= 5,fig.align='center', 
+                      out.width = '50%', fig.path= 'Figures/')
+```
+
+
+<!-- START your report from here. This is a comment in Rmd -->
+
+A good place to start with RMarkdown is with this [cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf). Using  **RStudio** will make your life easier.
+
+
+<!-- the {-} indicate that you do not wish to number this section. This is a comment in Rmd  -->
+# Introduction {-}
+(A section that is not numbered)
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see https://bookdown.org/yihui/rmarkdown-cookbook/latex-subfigure.html and the [cheatsheet](https://github.com/rstudio/cheatsheets/raw/master/rmarkdown-2.0.pdf).
+
+
+Example of `eval = FALSE` chunk: this code will not be run but the code is shown.
+
+```{r, eval = FALSE, message=FALSE}
+# setting eval - FALSE means this will be not run but the code is shown
+install.packages('ggplot2')
+```
+
+
+If you have some code that may take a while to run, you can save it as a .RData, and upload here to knit the report more efficiently, using the `load()` function.
+
+
+# Project background
+Describe project background and aim here.
+
+## Goal
+Describe project aim and list the tasks here.
+
+## Design
+Describe project design here.
+
+
+
+**bold**
+*italic*
+`code style`
+
+List:
+
+1 - item 1   
+2 - item 2
+
+Enumerating:
+
+- item
+- item
+
+
+# Analysis Step 1 - Data structure
+
+## Data summary
+some reference here
+`https://modelsummary.com/vignettes/datasummary.html`
+```{r step1}
+# some R code
+```
+
+## Plots
+
+You can also embed plot, include a caption, and cross-reference the figure.
+
+For example in Figure \ref{fig:pressure}:
+
+```{r pressure, echo = TRUE, fig.cap ='Cars data: plot of temperature (x-axis) vs pressure (y-axis)', out.width = '40%'}
+plot(pressure)
+```
+
+Another example to include an external image in Figure \ref{fig:logo}
+
+```{r logo, echo = FALSE, fig.cap ='Logo of PFR', out.width = '40%'}
+knitr::include_graphics('Figures/PFRLogo.png')
+```
+
+## Several plots
+
+Including several plots in the same row allows to gain some space.
+
+```{r my2plots, fig.show='hold', fig.cap ='Two logos of the package', fig.subcap= c('Subcaption 1', 'Subcaption 2'), out.width = '25%', fig.ncol = 2}
+# here, changing the out.width compared to the global options
+knitr::include_graphics(c('Figures/PFRLogo.png', 'Figures/PFRLogo.png'))
+```
+
+
+```{r my3plots, fig.show='hold', fig.cap="Three figures", fig.ncol = 3, fig.subcap= c('A scatterplot', 'Another scatterplot', 'Boxplots'), out.width = '25%'}
+plot(1:10)
+plot(cars, pch = 19)
+boxplot(Sepal.Width ~ Species, data = iris)
+```
+
+
+
+## Suggestions for modelling
+
+
+# Analysis Step 2 - Modelling
+
+## Methods
+Describe the methods used. 
+
+```{r step2}
+# some R code
+```
+
+
+## Results
+Describe results. 
+
+
+# Main findings
+
+```{r step3}
+# some R code
+```
+
+
+
+# Conclusion {-}
+My conclusion text here.
+
+
+# Reference
+
+
+<!-- New page -->
+\pagebreak
+
+# Reproduceable 
+Good practice is to finish the document with the versions of all the packages you have used, for reproducibility purpose (we will not count this as part of the number of allocated pages!):
+
+```{r}
+sessionInfo()
+```
