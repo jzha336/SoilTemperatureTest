@@ -84,7 +84,7 @@ A key aspect of writing good code is to properly document it. This has several a
 
 ### Input data
 
-*to fill*
+Input data should be stored in either a powerplant folder specific to your project, with `input/projects` (preferred), or in the `data/` folder. You can see an example for both options in the `scripts/analysis.R` file. As GitHub is not ideal for data or file storage/achive, if you work locally, you can ask GitHub to not track the files in the data folder, see **Using GitHub** below for more details. 
 
 ### Generated output
 
@@ -100,7 +100,80 @@ When first setting up your project from this template, you might see a message s
 
 ### Using GitHub
 
-*to fill*
+**git** is the version control software, and **GitHub** is one of the most popular cloud-based systems for working with git. Using GitHub repo allows better version control of files and collaboration.  
+For more information regarding using GitHub, refer to:  
+[Happy Git and GitHub for the useR](https://happygitwithr.com/)  
+[Version Control with Git and GitHub](https://biostats-r.github.io/biostats/github/)
+
+
+Before using the repo, check if you have git installed, if not, download from https://git-scm.com/ .  
+A GitHub account at https://github.com/.  
+A GitHub token at [Personal Access Tokens](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens).  Or in Rstudio, this process can be done with `usethis` package.  
+
+
+```{r}
+install.packages("usethis")
+library(usethis)
+use_git_config(
+  user.name = "your_github_account_name", 
+  user.email = "your_email_account")
+  
+  # if not create a Personal Access Token (PAT) yet, you need to do this once for every RStudio project.
+  usethis::create_github_token()
+  
+  # this function will open GitHub and follow the instruction to make a PAT, then copy it by clicking on the clipboard icon and return to R.
+  gitcreds::gitcreds_set()
+  # this will ask you for your PAT: paste it at the prompt and press return. 
+```
+
+To use the rds-starter repo, we suggest this workflow:  
+
+1. Create a new GitHub repo yourself, this will generate your repo on GitHub *remote*: 
+<img src="images/new_repo.PNG" alt="new repo" width="800">  
+
+&nbsp;&nbsp;&nbsp; use rds-starter as the template:  
+<img src="images/template.PNG" alt="template" width="800">  
+
+2. Clone the repo you have created to *local* using Rstudio.  
+&nbsp; - Get the GitHub Repository URL: https://github.com/PlantandFoodResearch/rds-starter.git
+<img src="images/clone.PNG" alt="clone" width="800">   
+
+&nbsp;&nbsp;&nbsp; - Launch RStudio.  
+
+&nbsp;&nbsp;&nbsp; - In the top menu bar, click File → New Project.  
+
+<img src="images/new_project.PNG" alt="new_project" width="400">  
+
+&nbsp;&nbsp;&nbsp; - In the New Project dialog box, select Version Control.  
+
+&nbsp;&nbsp;&nbsp; - In the next window, select Git.  
+
+<img src="images/new_project2.PNG" alt="new_project2" width="400">  
+
+&nbsp;&nbsp;&nbsp; - Paste the GitHub repo URL into the "Repository URL" field.  
+<img src="images/new_project3.PNG" alt="new_project3" width="400">  
+
+&nbsp;&nbsp;&nbsp; - Choose a directory where you want to store the local version of the repo.  
+
+&nbsp;&nbsp;&nbsp; - Click Create Project.  
+
+
+RStudio will now:  
+
+Clone the repository from GitHub to the location on your local machine.  
+Open the project within RStudio as a new project.  
+
+3. Develop your code.  
+
+4. Commits the code to your *local* repo.  
+<img src="images/commit1.PNG" alt="commit1" width="400">  
+<img src="images/commit2.PNG" alt="commit2" width="800">  
+
+5. Push the changes to the *remote* repo.  
+<img src="images/push.PNG" alt="push" width="800">  
+
+6. Check the *remote* repo and all changes are tracked on GitHub.  
+
 
 ## Contribution guidelines
 
