@@ -2,13 +2,13 @@
 
 # set up working folder as three folders
 # /Crop2ML - all the function files generated from Crop2ML - units and composites
-# /script - store the wrapper or notebook
+# /notebooks - store the wrapper or notebook
 # /data - to store the weather and parameter files, if users store input weather data and parameters at other directories, they need to specify them in the 'load the data' chunk. 
 
 ################################################################################
 # 2. Source functions
 # set up the working directory by choosing the main script or the wrapper notebook, this is the directory one level up from the selected file, then locate the R folder which contains all the functions (units and compartment)
-setwd(paste(dirname(dirname(file.choose())), ("/R"), sep = ""))
+setwd(paste(dirname(dirname(file.choose())), ("/Crop2ML"), sep = ""))
 
 # then load all the functions
 lapply(list.files(getwd(), pattern = "\\.r$"), source)
