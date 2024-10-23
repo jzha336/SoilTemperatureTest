@@ -1,0 +1,7 @@
+!Parameters to test soil temperature - SimPlace
+cCarbonContent, 2.0
+cAlbedo, 0.5
+cAverageGroundTemperature, 5.69
+cAverageBulkDensity, 1.2
+cDampingDepth, 6.0
+cSoilLayerDepth, 0.1, 0.15, 0.25, 0.25, 0.25
