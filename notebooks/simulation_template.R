@@ -1,9 +1,15 @@
+# ***some debug notes:
+# depends on the Crop2ML model and user needs, specific R libraries might required, if error or warning appears, the user will need to use 
+# "install.packages("the package name") to install required packages to R first.
+
+
+
 # 1. Set up folders
 
 # set up working folder as three folders
 # /Crop2ML - all the function files generated from Crop2ML - units and composites
-# /notebooks - store the wrapper or notebook
-# /data - to store the weather and parameter files, if users store input weather data and parameters at other directories, they need to specify them in the 'load the data' chunk. 
+# /notebooks - store the wrappers or notebooks which runs the simulation by calling the composite by modelling steps
+# /data - to store the weather and soil property files, if users store input weather data and soil property at other directories, they need to specify them in the 'load the data' chunk. 
 
 ################################################################################
 # 2. Source functions
@@ -13,9 +19,11 @@ setwd(paste(dirname(dirname(file.choose())), ("/Crop2ML"), sep = ""))
 # then load all the functions
 lapply(list.files(getwd(), pattern = "\\.r$"), source)
 
+# Currently they are three functions in the Crop2ML folder for Simplace Soil Temperature model, it is possible to just call the composite, which will then source the units by itself.
+# However, considering there might be multiple model composites in the Crop2ML folder, the above command will load everything in the Crop2ML folder
 
 ################################################################################
-# 3. Load weather input and parameter values
+# 3. Load weather input and soil property values
 # move the working directory 
 setwd(dirname(getwd()))
 
@@ -23,12 +31,12 @@ setwd(dirname(getwd()))
 # weather
 # weather <- read.table("/data/weather.txt", skip = 8, header = FALSE)
 
-# parameters
-# parameters <- read.table("/data/parameters.txt", skip = 8, header = FALSE)
+# soil properties 
+# soilproperty <- read.table("/data/soil_property.txt", skip = 8, header = FALSE)
 
 
 ################################################################################
-# 4. set parameters and first values of exogenous of soilTemperature components
+# 4. set the first values of exogenous of soilTemperature components
 
 # The initial values, from the values of the first day in the weather data
 iTempMax = weather$ # fill in the first value of the correct column from weather data
@@ -37,15 +45,15 @@ iTempMax = weather$ # fill in the first value of the correct column from weather
   iRAIN = weather$
   cFirstDayMeanTemp = mean(iTempMax,iTempMin)
 
-# From parameter:
-cAverageGroundTemperature = parameters$ # fill in the correct values from parameters
-  cAverageBulkDensity = parameters$
-  cCarbonContent = parameters$
-  Albedo = parameters$
-  cDampingDepth = parameters$
-  cSoilLayerDepth = parameters$
+# From soil property (in this example it is called soilproperty from the data/soil_property.txt):
+cAverageGroundTemperature = soilproperty$ # fill in the correct values from soil property file
+  cAverageBulkDensity = soilproperty$
+  cCarbonContent = soilproperty$
+  Albedo = soilproperty$
+  cDampingDepth = soilproperty$
+  cSoilLayerDepth = soilproperty$
   
-  #Other constents that is not in the input files
+# Other constents that is not in the input files
   iCropResidues = # fill in the values 
   iPotentialSoilEvaporation =  
   iLeafAreaIndex = 

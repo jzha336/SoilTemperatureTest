@@ -1,17 +1,26 @@
+# ***some debug notes:
+# depends on the Crop2ML model and user needs, specific R libraries might required, if error or warning appears, the user will need to use 
+# "install.packages("the package name") to install required packages to R first.
+
+
+
 # 1. Set up folders
 
 # set up working folder as three folders
 # /Crop2ML - all the function files generated from Crop2ML - units and composites
-# /nitebooks - store the wrapper or notebook
+# /notebooks - store the wrappers or notebooks which runs the simulation by calling the composite by modelling steps
 # /data - to store the weather and parameter files, if users store input weather data and parameters at other directories, they need to specify them in the 'load the data' chunk. 
 
 ################################################################################
 # 2. Source functions
-# set up the working directory by choosing the the current opened notebook, this is the directory one level up from the selected file, then locate the R folder which contains all the functions (units and compartment)
+# set up the working directory by choosing the main script or the wrapper notebook, this is the directory one level up from the selected file, then locate the R folder which contains all the functions (units and compartment)
 setwd(paste(dirname(dirname(file.choose())), ("/Crop2ML"), sep = ""))
 
 # then load all the functions
 lapply(list.files(getwd(), pattern = "\\.r$"), source)
+
+# Currently they are three functions in the Crop2ML folder for Simplace Soil Temperature model, it is possible to just call the composite, which will then source the units by itself.
+# However, considering there might be multiple model composites in the Crop2ML folder, the above command will load everything in the Crop2ML folder
 
 # or alternatively, user can load the selected files 
 # source("SoilTemperatureComponent.r")
@@ -19,11 +28,13 @@ lapply(list.files(getwd(), pattern = "\\.r$"), source)
 # source("stmpsimcalculator.r")
 
 ################################################################################
-# 3. Load weather input and parameter values
+# 3. Load weather input and soil property values
 # weather data
 # move the working directory
 setwd(dirname(getwd())) 
 
+# weather
+library(dplyr)
 weather <- read.table("data/queenstown.txt", skip = 8, header = FALSE)
 file_lines<- readLines("data/queenstown.txt")
 column_names <- read.table(text = file_lines[7:8], header = FALSE, stringsAsFactors = FALSE) %>%
@@ -31,7 +42,7 @@ column_names <- read.table(text = file_lines[7:8], header = FALSE, stringsAsFact
 colnames(weather) <- column_names
 weather <- weather[which(weather$`year()` == c(2000, 2001)),]
 
-#parameters
+# soil property
 parameter <- readLines("data/ParamTest.txt")[-1] 
 parameters <- list()
 for (line in parameter) {

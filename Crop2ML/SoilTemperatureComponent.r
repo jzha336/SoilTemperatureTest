@@ -1,8 +1,8 @@
 library(gsubfn)
 #library (gsubfn) 
 #setwd('D:/Docs/AMEI_Workshop/AMEI_10_14_2022/Models/Simplace_Soil_Temperature/src/r')
-#source('Snowcovercalculator.r')
-#source('Stmpsimcalculator.r')
+source('snowcovercalculator.r')
+source('stmpsimcalculator.r')
 
 model_soiltemperature <- function (cCarbonContent,
          cAlbedo,
